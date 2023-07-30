@@ -21,10 +21,10 @@ jobs:
         run: npm install
 
       - name: Rewrite Manifest Path in Index
-        run: sed -i 's@/manifest.json@${{ github.event.repository.name }}/manifest.json@g' ./index.html && cat index.html
+        run: sed -i 's@/manifest.json@/${{ github.event.repository.name }}/manifest.json@g' ./index.html && cat index.html
 
       - name: Rewrite Service Worker Path in Index
-        run: sed -i 's@/sw.js@${{ github.event.repository.name }}/sw.js@g' ./index.html && cat ./index.html
+        run: sed -i 's@/sw.js@/${{ github.event.repository.name }}/sw.js@g' ./index.html && cat ./index.html
 
       - name: Replace Paths in Manifest
         run: sed -i 's@"/"@"/${{ github.event.repository.name }}/"@g' ./public/manifest.json && cat ./public/manifest.json
