@@ -1,9 +1,9 @@
 {
-  "id": "/",
-  "scope": "/",
-  "name": "PWA Starter",
+  "id": "/pwa-flash-llm",
+  "scope": "/pwa-flash-llm",
+  "start_url": "/pwa-flash-llm",
+  "name": "PWA Flashcard LLM",
   "display": "standalone",
-  "start_url": "/",
   "short_name": "starter",
   "theme_color": "#E1477E",
   "description": "This is a PWA Starter app",
@@ -54,7 +54,7 @@
       "name": "Open About",
       "short_name": "About",
       "description": "Open the about page",
-      "url": "/about",
+      "url": "/pwa-flash-llm/about",
       "icons": [{ "src": "assets/icons/192x192.png", "sizes": "192x192" }]
     }
   ],
