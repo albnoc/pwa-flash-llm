@@ -1,8 +1,9 @@
 name: Deploy PWA Starter to GitHub Pages
 
-push:
-  branches:
-    - main
+on:
+  push:
+    branches:
+      - main
 
 jobs:
   build:
