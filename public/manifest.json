@@ -1,7 +1,7 @@
 {
-  "id": "/pwa-flash-llm",
-  "scope": "/pwa-flash-llm",
-  "start_url": "/pwa-flash-llm",
+  "id": "/",
+  "scope": "/",
+  "start_url": "/",
   "name": "PWA Flashcard LLM",
   "display": "standalone",
   "short_name": "starter",
@@ -54,7 +54,7 @@
       "name": "Open About",
       "short_name": "About",
       "description": "Open the about page",
-      "url": "/pwa-flash-llm/about",
+      "url": "/about",
       "icons": [{ "src": "assets/icons/192x192.png", "sizes": "192x192" }]
     }
   ],
