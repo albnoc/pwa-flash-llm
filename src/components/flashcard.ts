@@ -1,3 +1,4 @@
+// flashcard-component.ts
 import { LitElement, css, html } from 'lit';
 import { property, customElement } from 'lit/decorators.js';
 
@@ -9,6 +10,7 @@ interface Flashcard {
 @customElement('component-flashcard')
 export class FlashcardComponent extends LitElement {
   @property({ type: Object }) flashcard: Flashcard = {question: "", answer: ""};
+  @property({ type: Boolean }) showAnswer: boolean = false;
 
   static get styles() {
     return css`
@@ -20,14 +22,19 @@ export class FlashcardComponent extends LitElement {
     `;
   }
 
-  constructor() {
-    super();
+  toggleCard() {
+    this.showAnswer = !this.showAnswer;
   }
 
   render() {
+    if (!this.flashcard) {  // If flashcard is undefined or null, return an empty template
+        return html``;
+    }
+
     return html`
-      <div>Question: ${this.flashcard.question}</div>
-      <div>Answer: ${this.flashcard.answer}</div>
+    <sl-card @click=${this.toggleCard}>
+        <h2>${this.showAnswer ? `Answer: ${this.flashcard.answer}` : `Question: ${this.flashcard.question}`}</h2>
+    </sl-card>
     `;
   }
 }

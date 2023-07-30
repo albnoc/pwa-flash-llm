@@ -17,6 +17,7 @@
   "dependencies": {
     "@shoelace-style/shoelace": "^2.4.0",
     "@thepassle/app-tools": "^0.9.0",
+    "hammerjs": "^2.0.8",
     "lit": "^2.7.2",
     "urlpattern-polyfill": "^7.0.0",
     "workbox-build": "^6.5.2",
@@ -24,6 +25,7 @@
     "workbox-precaching": "^6.5.2"
   },
   "devDependencies": {
+    "@types/hammerjs": "^2.0.41",
     "typescript": "^5.0.4",
     "vite": "^4.2.1",
     "vite-plugin-pwa": "^0.14.7"

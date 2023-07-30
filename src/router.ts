@@ -38,14 +38,6 @@ export const router = new Router({
           lazy(() => import('./pages/app-flash/app-flash.js')),
         ],
         render: () => html`<app-flash></app-flash>`
-      },
-      {
-        path: '/new-page',
-        title: 'new page',
-        plugins: [
-          lazy(() => import('./pages/new-page.js')),
-        ],
-        render: () => html`<new-page></new-page>`
       }
 
     ]
