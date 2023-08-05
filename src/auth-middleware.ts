@@ -12,8 +12,8 @@ export function createAuthPlugin() {
       },
       redirect: '/signin', // If the condition is false, redirect to the signin page
     }),
-    beforeNavigation: (context: any) => {},
-    afterNavigation: (context: any) => {},
+    beforeNavigation: (_context: any) => {},
+    afterNavigation: (_context: any) => {},
   };
 }
 
