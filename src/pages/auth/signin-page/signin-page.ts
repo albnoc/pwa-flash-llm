@@ -47,20 +47,16 @@ export class SigninPage extends LitElement {
     const formData = new FormData(e.target as HTMLFormElement);
     const email = formData.get('email') as string;
 
-    const { data, error } = await supabase.auth.signInWithOtp({
+    const { data: _, error } = await supabase.auth.signInWithOtp({
       email,
     });
-    const { user, session } = data;
 
     if (error) {
       console.error('Error during sign in:', error);
       return;
     }
-    console.log('Sign in successful:', user, session);
-    // If the sign in is successful, navigate to the email sent page
-    if (user || session) {
-      router.navigate('/email-sent');
-    }
+
+    router.navigate('/email-sent');
   }
 }
 

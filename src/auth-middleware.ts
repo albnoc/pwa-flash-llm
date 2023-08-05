@@ -1,18 +1,19 @@
 import { supabase } from './supabase-client';
-import { router } from './router';
 
-const requireAuth =
-  () =>
-  async ({ resolve }: any) => {
-    const user = supabase.auth.getUser();
-
-    if (!user) {
-      router.navigate('/signin');
-      return;
-    }
-
-    return resolve();
+export function createAuthPlugin() {
+  return {
+    shouldNavigate: (context: any) => ({
+      condition: async () => {
+        const {
+          data: { user },
+        } = await supabase.auth.getUser();
+        console.log(context, user);
+        return user !== null; // Returns true if a user is logged in, false otherwise
+      },
+      redirect: '/signin', // If the condition is false, redirect to the signin page
+    }),
+    beforeNavigation: (context: any) => {},
+    afterNavigation: (context: any) => {},
   };
-
-export default requireAuth;
+}
 

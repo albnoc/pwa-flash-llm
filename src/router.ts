@@ -13,7 +13,7 @@ import { lazy } from '@thepassle/app-tools/router/plugins/lazy.js';
 import { title } from '@thepassle/app-tools/router/plugins/title.js';
 
 import './pages/app-home.js';
-import requireAuth from './auth-middleware.js';
+import { createAuthPlugin } from './auth-middleware.js';
 
 const baseURL: string = (import.meta as any).env.BASE_URL;
 console.log(baseURL);
@@ -22,7 +22,7 @@ export const router = new Router({
     {
       path: resolveRouterPath(),
       title: 'Home',
-      plugins: [requireAuth()],
+      plugins: [createAuthPlugin()],
       render: () => html`<app-home></app-home>`,
     },
     {
@@ -30,7 +30,7 @@ export const router = new Router({
       title: 'About',
       plugins: [
         lazy(() => import('./pages/about-page/about-page.js')),
-        requireAuth(),
+        createAuthPlugin(),
       ],
       render: () => html`<about-page></about-page>`,
     },
@@ -39,7 +39,7 @@ export const router = new Router({
       title: 'Flash',
       plugins: [
         lazy(() => import('./pages/app-flash/app-flash.js')),
-        requireAuth(),
+        createAuthPlugin(),
       ],
       render: () => html`<app-flash></app-flash>`,
     },
