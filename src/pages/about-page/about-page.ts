@@ -9,8 +9,8 @@ import { styles as sharedStyles } from '../../styles/shared-styles'
 
 import '@shoelace-style/shoelace/dist/components/card/card.js';
 
-@customElement('app-about')
-export class AppAbout extends LitElement {
+@customElement('about-page')
+export class AboutPage extends LitElement {
   static styles = [
     sharedStyles,
     styles

@@ -6,10 +6,10 @@ import '@shoelace-style/shoelace/dist/components/card/card.js';
 import '@shoelace-style/shoelace/dist/components/button/button.js';
 
 import { styles } from '../styles/shared-styles';
+import { signOut } from '../supabase-client';
 
 @customElement('app-home')
 export class AppHome extends LitElement {
-
   // For more information on using properties and state in lit
   // check out this link https://lit.dev/docs/components/properties/
   @property() message = 'Welcome!';
@@ -18,43 +18,43 @@ export class AppHome extends LitElement {
     return [
       styles,
       css`
-      #welcomeBar {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-      }
-
-      #welcomeCard,
-      #infoCard {
-        padding: 18px;
-        padding-top: 0px;
-      }
-
-      sl-card::part(footer) {
-        display: flex;
-        justify-content: flex-end;
-      }
-
-      @media(min-width: 750px) {
-        sl-card {
-          width: 70vw;
-        }
-      }
-
-
-      @media (horizontal-viewport-segments: 2) {
         #welcomeBar {
-          flex-direction: row;
-          align-items: flex-start;
-          justify-content: space-between;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          flex-direction: column;
         }
 
-        #welcomeCard {
-          margin-right: 64px;
+        #welcomeCard,
+        #infoCard {
+          padding: 18px;
+          padding-top: 0px;
         }
-      }
-    `];
+
+        sl-card::part(footer) {
+          display: flex;
+          justify-content: flex-end;
+        }
+
+        @media (min-width: 750px) {
+          sl-card {
+            width: 70vw;
+          }
+        }
+
+        @media (horizontal-viewport-segments: 2) {
+          #welcomeBar {
+            flex-direction: row;
+            align-items: flex-start;
+            justify-content: space-between;
+          }
+
+          #welcomeCard {
+            margin-right: 64px;
+          }
+        }
+      `,
+    ];
   }
 
   constructor() {
@@ -91,7 +91,8 @@ export class AppHome extends LitElement {
             <p>
               For more information on the PWABuilder pwa-starter, check out the
               <a href="https://docs.pwabuilder.com/#/starter/quick-start">
-                documentation</a>.
+                documentation</a
+              >.
             </p>
 
             <p id="mainInfo">
@@ -99,12 +100,17 @@ export class AppHome extends LitElement {
               <a href="https://pwabuilder.com">PWABuilder</a>
               pwa-starter! Be sure to head back to
               <a href="https://pwabuilder.com">PWABuilder</a>
-              when you are ready to ship this PWA to the Microsoft Store, Google Play
-              and the Apple App Store!
+              when you are ready to ship this PWA to the Microsoft Store, Google
+              Play and the Apple App Store!
             </p>
 
             ${'share' in navigator
-              ? html`<sl-button slot="footer" variant="primary" @click="${this.share}">Share this Starter!</sl-button>`
+              ? html`<sl-button
+                  slot="footer"
+                  variant="primary"
+                  @click="${this.share}"
+                  >Share this Starter!</sl-button
+                >`
               : null}
           </sl-card>
 
@@ -125,16 +131,34 @@ export class AppHome extends LitElement {
               </li>
 
               <li>
-                <a href="https://github.com/thepassle/app-tools/blob/master/router/README.md"
-                  >App Tools Router</a>
+                <a
+                  href="https://github.com/thepassle/app-tools/blob/master/router/README.md"
+                  >App Tools Router</a
+                >
               </li>
             </ul>
           </sl-card>
 
-          <sl-button href="${resolveRouterPath('about')}" variant="primary">Navigate to About</sl-button>
-          <sl-button href="${resolveRouterPath('flash')}" variant="primary">Navigate to Flash</sl-button>
+          <sl-button href="${resolveRouterPath('about')}" variant="primary"
+            >Navigate to About</sl-button
+          >
+          <sl-button href="${resolveRouterPath('flash')}" variant="primary"
+            >Navigate to Flash</sl-button
+          >
+          <sl-button @click="${this.handleLogout}">Logout</sl-button>
         </div>
       </main>
     `;
   }
+
+  async handleLogout() {
+    try {
+      await signOut();
+      // Handle what should happen after logout
+      // Usually navigating to the login page or showing a message
+    } catch (error: any) {
+      console.error('Error during sign out:', error.message);
+    }
+  }
 }
+
