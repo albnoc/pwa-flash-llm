@@ -17,7 +17,7 @@
       "forceConsistentCasingInFileNames": true,
       "useDefineForClassFields": false,
       "isolatedModules": true,
-      "skipLibCheck": true,
+      "skipLibCheck": false,
       "types": [
           "vite-plugin-pwa/client",
           "vite/client"
