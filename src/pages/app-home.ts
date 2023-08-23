@@ -5,6 +5,7 @@ import '@shoelace-style/shoelace/dist/components/card/card.js';
 import '@shoelace-style/shoelace/dist/components/button/button.js';
 
 import { styles } from '../styles/shared-styles';
+import { supabase } from '../supabase-client';
 
 @customElement('app-home')
 export class AppHome extends LitElement {
@@ -60,8 +61,9 @@ export class AppHome extends LitElement {
   }
 
   async firstUpdated() {
-    // this method is a lifecycle even in lit
-    // for more info check out the lit docs https://lit.dev/docs/components/lifecycle/
+    const { data: topic, error } = await supabase.from('topic').select('*');
+    if (error) console.log('error', error);
+    console.log('topic', topic);
   }
 
   share() {
