@@ -35,6 +35,12 @@ export class SigninPage extends LitElement {
             placeholder="Email"
             label="Email"
           ></sl-input>
+          <sl-input
+            type="password"
+            name="password"
+            placeholder="Password"
+            label="Password"
+          ></sl-input>
           <sl-button type="submit" submit>Sign In</sl-button>
         </form>
       </main>
@@ -46,9 +52,11 @@ export class SigninPage extends LitElement {
 
     const formData = new FormData(e.target as HTMLFormElement);
     const email = formData.get('email') as string;
+    const password = formData.get('password') as string;
 
-    const { data: _, error } = await supabase.auth.signInWithOtp({
+    const { data: _, error } = await supabase.auth.signInWithPassword({
       email,
+      password,
     });
 
     if (error) {
@@ -56,7 +64,7 @@ export class SigninPage extends LitElement {
       return;
     }
 
-    router.navigate('/email-sent');
+    router.navigate('/');
   }
 }
 
