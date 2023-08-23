@@ -3,6 +3,7 @@ import { property, customElement } from 'lit/decorators.js';
 
 import '@shoelace-style/shoelace/dist/components/card/card.js';
 import '@shoelace-style/shoelace/dist/components/button/button.js';
+import '../components/topic-item';
 
 import { styles } from '../styles/shared-styles';
 import { supabase } from '../supabase-client';
@@ -12,6 +13,7 @@ export class AppHome extends LitElement {
   // For more information on using properties and state in lit
   // check out this link https://lit.dev/docs/components/properties/
   @property() message = 'Welcome!';
+  @property() topics: string[] = [];
 
   static get styles() {
     return [
@@ -40,7 +42,12 @@ export class AppHome extends LitElement {
             width: 70vw;
           }
         }
-
+        #topicsGrid {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 16px;
+          padding: 16px;
+        }
         @media (horizontal-viewport-segments: 2) {
           #welcomeBar {
             flex-direction: row;
@@ -61,9 +68,17 @@ export class AppHome extends LitElement {
   }
 
   async firstUpdated() {
-    const { data: topic, error } = await supabase.from('topic').select('*');
-    if (error) console.log('error', error);
-    console.log('topic', topic);
+    try {
+      let { data: topic, error } = await supabase.from('topic').select('name');
+
+      if (error) {
+        console.error('Error fetching topic:', error);
+      } else {
+        this.topics = topic?.map((t) => t.name) ?? [];
+      }
+    } catch (err) {
+      console.error('Unexpected error fetching topic:', err);
+    }
   }
 
   share() {
@@ -74,6 +89,23 @@ export class AppHome extends LitElement {
         url: 'https://github.com/pwa-builder/pwa-starter',
       });
     }
+  }
+  // ... other properties ...
+
+  getColor(index: number): string {
+    const colors = [
+      '#FAD02E',
+      '#F28D35',
+      '#D83367',
+      '#635DFF',
+      '#508BF9',
+      '#2EC5CE',
+      '#2ECC71',
+      '#FEC007',
+      '#FC5C65',
+      '#26de81',
+    ];
+    return colors[index % colors.length];
   }
 
   render() {
@@ -87,21 +119,16 @@ export class AppHome extends LitElement {
               <h2>${this.message}</h2>
             </div>
 
-            <p>
-              For more information on the PWABuilder pwa-starter, check out the
-              <a href="https://docs.pwabuilder.com/#/starter/quick-start">
-                documentation</a
-              >.
-            </p>
-
-            <p id="mainInfo">
-              Welcome to the
-              <a href="https://pwabuilder.com">PWABuilder</a>
-              pwa-starter! Be sure to head back to
-              <a href="https://pwabuilder.com">PWABuilder</a>
-              when you are ready to ship this PWA to the Microsoft Store, Google
-              Play and the Apple App Store!
-            </p>
+            <div id="topicsGrid">
+              ${this.topics.map(
+                (topic, index) => html`
+                  <topic-item
+                    .label=${topic}
+                    .color=${this.getColor(index)}
+                  ></topic-item>
+                `
+              )}
+            </div>
 
             ${'share' in navigator
               ? html`<sl-button
@@ -111,31 +138,6 @@ export class AppHome extends LitElement {
                   >Share this Starter!</sl-button
                 >`
               : null}
-          </sl-card>
-
-          <sl-card id="infoCard">
-            <h2>Technology Used</h2>
-
-            <ul>
-              <li>
-                <a href="https://www.typescriptlang.org/">TypeScript</a>
-              </li>
-
-              <li>
-                <a href="https://lit.dev">lit</a>
-              </li>
-
-              <li>
-                <a href="https://shoelace.style/">Shoelace</a>
-              </li>
-
-              <li>
-                <a
-                  href="https://github.com/thepassle/app-tools/blob/master/router/README.md"
-                  >App Tools Router</a
-                >
-              </li>
-            </ul>
           </sl-card>
         </div>
       </main>
