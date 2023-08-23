@@ -26,19 +26,19 @@ export const router = new Router({
       render: () => html`<app-home></app-home>`,
     },
     {
-      path: resolveRouterPath('about'),
-      title: 'About',
+      path: resolveRouterPath('profile'),
+      title: 'Profile',
       plugins: [
-        lazy(() => import('./pages/about-page/about-page.js')),
+        lazy(() => import('./pages/profile/profile-page.js')),
         createAuthPlugin(),
       ],
-      render: () => html`<about-page></about-page>`,
+      render: () => html`<profile-page></profile-page>`,
     },
     {
       path: resolveRouterPath('flash'),
       title: 'Flash',
       plugins: [
-        lazy(() => import('./pages/app-flash/app-flash.js')),
+        lazy(() => import('./pages/flash/flash.js')),
         createAuthPlugin(),
       ],
       render: () => html`<app-flash></app-flash>`,

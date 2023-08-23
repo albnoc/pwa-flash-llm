@@ -4,6 +4,7 @@ import { property, customElement } from 'lit/decorators.js';
 import '@shoelace-style/shoelace/dist/components/icon/icon.js';
 import '@shoelace-style/shoelace/dist/components/icon-button/icon-button.js';
 import '@shoelace-style/shoelace/dist/components/button/button.js';
+import { router } from '../router';
 
 @customElement('bottom-navigation')
 export class BottomNavigation extends LitElement {
@@ -37,21 +38,21 @@ export class BottomNavigation extends LitElement {
     return html`
       <div class="navbar">
         <div class="nav-item" ?active="${this.activeRoute === 'home'}">
-          <sl-button>
+          <sl-button @click="${() => router.navigate('home')}">
             <sl-icon name="house"></sl-icon>
             Home
           </sl-button>
         </div>
-        <div class="nav-item" ?active="${this.activeRoute === 'search'}">
-          <sl-button>
-            <sl-icon name="search"></sl-icon>
-            Search
+        <div class="nav-item" ?active="${this.activeRoute === 'flash'}">
+          <sl-button @click="${() => router.navigate('flash')}">
+            <sl-icon name="layers"></sl-icon>
+            Flashcards
           </sl-button>
         </div>
-        <div class="nav-item" ?active="${this.activeRoute === 'settings'}">
-          <sl-button>
-            <sl-icon name="gear-wide"></sl-icon>
-            Settings
+        <div class="nav-item" ?active="${this.activeRoute === 'profile'}">
+          <sl-button @click="${() => router.navigate('profile')}">
+            <sl-icon name="person"></sl-icon>
+            Profile
           </sl-button>
         </div>
       </div>

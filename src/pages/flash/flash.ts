@@ -3,7 +3,7 @@ import { LitElement, html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import '../../components/flashcard';
 import { styles as sharedStyles } from '../../styles/shared-styles';
-import { styles  } from './flash-styles';
+import { styles } from './flash-styles';
 import Hammer from 'hammerjs';
 
 import '@shoelace-style/shoelace/dist/components/card/card.js';
@@ -23,7 +23,10 @@ export class FlashcardsPage extends LitElement {
 
   async updated(changedProps: Map<string | number | symbol, unknown>) {
     if (changedProps.has('topic')) {
-      this.cards = [{cardId: 1, question:"Question 1", answer:"Answer 1"}, {cardId: 2, question:"Question 2", answer:"Answer 2"}];
+      this.cards = [
+        { cardId: 1, question: 'Question 1', answer: 'Answer 1' },
+        { cardId: 2, question: 'Question 2', answer: 'Answer 2' },
+      ];
     }
   }
   firstUpdated() {
@@ -46,14 +49,16 @@ export class FlashcardsPage extends LitElement {
 
   render() {
     return html`
-      <app-header ?enableBack="${true}" title="${'Flash Cards'}"></app-header>
+      <app-header ?enableBack="${true}" title="${'Flashcards'}"></app-header>
 
       <main>
-      <h2>Topic: ${this.topic}</h2>
-        <div style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
-
-
-          <component-flashcard .flashcard=${this.cards[this.currentCardIndex]}></component-flashcard>
+        <h2>Topic: ${this.topic}</h2>
+        <div
+          style="display: flex; flex-direction: column; align-items: center; justify-content: center;"
+        >
+          <component-flashcard
+            .flashcard=${this.cards[this.currentCardIndex]}
+          ></component-flashcard>
 
           <div style="display: flex; gap: 20px; margin-top: 20px;">
             <sl-button @click="${this.prevCard}">Previous</sl-button>
@@ -61,6 +66,8 @@ export class FlashcardsPage extends LitElement {
           </div>
         </div>
       </main>
+      <bottom-navigation activeRoute="flash"></bottom-navigation>
     `;
   }
 }
+

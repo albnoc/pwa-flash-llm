@@ -1,12 +1,10 @@
 import { LitElement, css, html } from 'lit';
 import { property, customElement } from 'lit/decorators.js';
-import { resolveRouterPath } from '../router';
 
 import '@shoelace-style/shoelace/dist/components/card/card.js';
 import '@shoelace-style/shoelace/dist/components/button/button.js';
 
 import { styles } from '../styles/shared-styles';
-import { signOut } from '../supabase-client';
 
 @customElement('app-home')
 export class AppHome extends LitElement {
@@ -137,28 +135,10 @@ export class AppHome extends LitElement {
               </li>
             </ul>
           </sl-card>
-
-          <sl-button href="${resolveRouterPath('about')}" variant="primary"
-            >Navigate to About</sl-button
-          >
-          <sl-button href="${resolveRouterPath('flash')}" variant="primary"
-            >Navigate to Flash</sl-button
-          >
-          <sl-button @click="${this.handleLogout}">Logout</sl-button>
         </div>
-        <bottom-navigation active-route="home"></bottom-navigation>
       </main>
+      <bottom-navigation active-route="home"></bottom-navigation>
     `;
-  }
-
-  async handleLogout() {
-    try {
-      await signOut();
-      // Handle what should happen after logout
-      // Usually navigating to the login page or showing a message
-    } catch (error: any) {
-      console.error('Error during sign out:', error.message);
-    }
   }
 }
 
