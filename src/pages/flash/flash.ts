@@ -49,7 +49,7 @@ export class FlashcardsPage extends LitElement {
 
   render() {
     return html`
-      <app-header ?enableBack="${true}" title="${'Flashcards'}"></app-header>
+      <app-header ?enableBack="${false}" title="${'Flashcards'}"></app-header>
 
       <main>
         <h2>Topic: ${this.topic}</h2>
