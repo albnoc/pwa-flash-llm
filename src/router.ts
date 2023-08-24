@@ -71,6 +71,7 @@ export const router = new Router({
     {
       path: '*',
       title: 'Home',
+      plugins: [createAuthPlugin()],
       render: () => html`<app-home></app-home>`,
     },
   ],
