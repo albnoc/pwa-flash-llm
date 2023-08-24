@@ -22,7 +22,13 @@ console.log(basePath);
 export const router = new Router({
   routes: [
     {
-      path: resolveRouterPath(''),
+      path: resolveRouterPath(''), // This should resolve to '/pwa-flash-llm/'
+      title: 'Home',
+      plugins: [createAuthPlugin()],
+      render: () => html`<app-home></app-home>`,
+    },
+    {
+      path: resolveRouterPath('home'),
       title: 'Home',
       plugins: [createAuthPlugin()],
       render: () => html`<app-home></app-home>`,
