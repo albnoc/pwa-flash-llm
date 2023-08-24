@@ -22,7 +22,7 @@ console.log(basePath);
 export const router = new Router({
   routes: [
     {
-      path: resolveRouterPath(),
+      path: resolveRouterPath(''),
       title: 'Home',
       plugins: [createAuthPlugin()],
       render: () => html`<app-home></app-home>`,
@@ -58,6 +58,15 @@ export const router = new Router({
         lazy(() => import('./pages/auth/email-sent-page/email-sent-page.js')),
       ],
       render: () => html`<email-sent-page></email-sent-page>`,
+    },
+    {
+      path: resolveRouterPath('*'),
+      title: 'Not Found',
+      render: () => {
+        // Redirect to home
+        window.location.href = resolveRouterPath();
+        return html``; // This will not actually render anything because of the redirect above
+      },
     },
   ],
 });
