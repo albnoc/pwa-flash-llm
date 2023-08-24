@@ -15,8 +15,8 @@ import { title } from '@thepassle/app-tools/router/plugins/title.js';
 import './pages/app-home.js';
 import { createAuthPlugin } from './auth-middleware.js';
 
-const baseURL: string = (import.meta as any).env.BASE_PATH || '/';
-console.log(baseURL);
+const basePath: string = (import.meta as any).env.VITE_BASE_PATH || '/';
+console.log(basePath);
 export const router = new Router({
   routes: [
     {
@@ -113,7 +113,7 @@ export const router = new Router({
 // If no arg is passed to this function, it will return the base URL.
 
 export function resolveRouterPath(unresolvedPath?: string) {
-  let resolvedPath = baseURL;
+  let resolvedPath = basePath;
   if (unresolvedPath) {
     resolvedPath = resolvedPath + unresolvedPath;
   }
