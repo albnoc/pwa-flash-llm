@@ -25,7 +25,7 @@ jobs:
 
       - name: Update base path in index.html
         run: |
-          sed -i 's@<base href="/"/>@<base href="/${{ github.event.repository.name }}/"/>@g' ./index.html
+          sed -i "s@<base href=\"/\"/>@<base href=\"/$VITE_BASE_PATH/\"/>@g" ./index.html
           cat index.html
 
       - name: Rewrite Manifest Path in Index
