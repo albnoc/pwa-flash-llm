@@ -10,6 +10,7 @@ import { setBasePath } from '@shoelace-style/shoelace/dist/utilities/base-path.j
 
 // Get the base URL from Vite's environment variables
 const baseURL = import.meta.env.BASE_URL;
+console.log('baseURL', baseURL);
 
 // Set the base path dynamically based on the BASE_URL
 setBasePath(`${baseURL}node_modules/@shoelace-style/shoelace/dist/`);
