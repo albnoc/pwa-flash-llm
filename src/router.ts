@@ -76,7 +76,9 @@ export const router = new Router({
 // If no arg is passed to this function, it will return the base URL.
 
 export function resolveRouterPath(unresolvedPath = ''): string {
-  return `${basePath}${unresolvedPath}/`.replace(/\/+/g, '/');
+  const route = `${basePath}${unresolvedPath}/`.replace(/\/+/g, '/');
+  console.log(route);
+  return route;
 }
 
 router.routes.forEach((route: { path: any }) => {
