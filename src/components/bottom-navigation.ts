@@ -38,9 +38,7 @@ export class BottomNavigation extends LitElement {
     return html`
       <div class="navbar">
         <div class="nav-item" ?active="${this.activeRoute === 'home'}">
-          <sl-button
-            @click="${() => router.navigate(resolveRouterPath('home'))}"
-          >
+          <sl-button @click="${() => router.navigate(resolveRouterPath(''))}">
             <sl-icon name="house"></sl-icon>
             Home
           </sl-button>

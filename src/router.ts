@@ -89,7 +89,7 @@ export const router = new Router({
 
 export function resolveRouterPath(unresolvedPath = ''): string {
   const route = `${basePath}${unresolvedPath}/`.replace(/\/+/g, '/');
-  console.log(route);
+  console.log('ROUTE', route);
   return route;
 }
 
