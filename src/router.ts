@@ -73,3 +73,7 @@ export function resolveRouterPath(unresolvedPath?: string) {
   return resolvedPath;
 }
 
+router.routes.forEach((route: { path: any }) => {
+  console.log(route.path);
+});
+
