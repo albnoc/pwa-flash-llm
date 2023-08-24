@@ -9,11 +9,11 @@ import { router } from './router';
 import { setBasePath } from '@shoelace-style/shoelace/dist/utilities/base-path.js';
 
 // Get the base URL from Vite's environment variables
-const baseURL = import.meta.env.base_path;
-console.log('baseURL', baseURL);
+const base_path = import.meta.env.BASE_PATH || '/';
+console.log('base_path', base_path);
 
 // Set the base path dynamically based on the base_path
-setBasePath(`${baseURL}node_modules/@shoelace-style/shoelace/dist/`);
+setBasePath(`${base_path}node_modules/@shoelace-style/shoelace/dist/`);
 
 @customElement('app-index')
 export class AppIndex extends LitElement {
