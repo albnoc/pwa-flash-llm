@@ -60,7 +60,7 @@ export const router = new Router({
       render: () => html`<email-sent-page></email-sent-page>`,
     },
     {
-      path: resolveRouterPath('*'),
+      path: `${resolveRouterPath()}*`,
       title: 'Not Found',
       render: () => {
         // Redirect to home
@@ -76,7 +76,7 @@ export const router = new Router({
 // If no arg is passed to this function, it will return the base URL.
 
 export function resolveRouterPath(unresolvedPath = ''): string {
-  return `${basePath}${unresolvedPath}`.replace(/\/+/g, '/');
+  return `${basePath}${unresolvedPath}/`.replace(/\/+/g, '/');
 }
 
 router.routes.forEach((route: { path: any }) => {
