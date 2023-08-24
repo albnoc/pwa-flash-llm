@@ -5,12 +5,8 @@ import './pages/app-home';
 import './components/header';
 import './components/bottom-navigation';
 import './styles/global.css';
-import { router } from './router';
+import { basePath, router } from './router';
 import { setBasePath } from '@shoelace-style/shoelace/dist/utilities/base-path.js';
-
-// Get the base URL from Vite's environment variables
-const basePath = (import.meta as any).env.VITE_BASE_PATH || '/';
-console.log('basePath', basePath);
 
 // Set the base path dynamically based on the basePath
 setBasePath(`${basePath}node_modules/@shoelace-style/shoelace/dist/`);

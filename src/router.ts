@@ -15,7 +15,9 @@ import { title } from '@thepassle/app-tools/router/plugins/title.js';
 import './pages/app-home.js';
 import { createAuthPlugin } from './auth-middleware.js';
 
-const basePath: string = (import.meta as any).env.VITE_BASE_PATH || '/';
+export const basePath: string = ensureSlashes(
+  (import.meta as any).env.VITE_BASE_PATH || '/'
+);
 console.log(basePath);
 export const router = new Router({
   routes: [
@@ -64,16 +66,21 @@ export const router = new Router({
 // Use of this function throughout the starter is not required, but highly recommended, especially if you plan to use GitHub Pages to deploy.
 // If no arg is passed to this function, it will return the base URL.
 
-export function resolveRouterPath(unresolvedPath?: string) {
-  let resolvedPath = basePath;
-  if (unresolvedPath) {
-    resolvedPath = resolvedPath + unresolvedPath;
-  }
-
-  return resolvedPath;
+export function resolveRouterPath(unresolvedPath = ''): string {
+  return `${basePath}${unresolvedPath}`.replace(/\/+/g, '/');
 }
 
 router.routes.forEach((route: { path: any }) => {
   console.log(route.path);
 });
+
+export function ensureSlashes(path: string): string {
+  if (!path.startsWith('/')) {
+    path = '/' + path;
+  }
+  if (!path.endsWith('/')) {
+    path = path + '/';
+  }
+  return path;
+}
 
