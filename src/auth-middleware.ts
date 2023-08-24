@@ -1,3 +1,4 @@
+import { resolveRouterPath } from './router';
 import { supabase } from './supabase-client';
 
 export function createAuthPlugin() {
@@ -9,7 +10,7 @@ export function createAuthPlugin() {
         } = await supabase.auth.getUser();
         return user !== null; // Returns true if a user is logged in, false otherwise
       },
-      redirect: '/signin', // If the condition is false, redirect to the signin page
+      redirect: resolveRouterPath('signin'), // If the condition is false, redirect to the signin page
     }),
     beforeNavigation: (_context: any) => {},
     afterNavigation: (_context: any) => {},

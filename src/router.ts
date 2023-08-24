@@ -57,54 +57,6 @@ export const router = new Router({
       ],
       render: () => html`<email-sent-page></email-sent-page>`,
     },
-    // {
-    //   path: resolveRouterPath('profile'),
-    //   title: 'Profile',
-    //   plugins: [
-    //     lazy(() => import('./pages/app-profile/app-profile.js')),
-    //   ],
-    //   render: () => html`<app-profile></app-profile>`
-    // },
-    // {
-    //   path: resolveRouterPath('settings'),
-    //   title: 'Settings',
-    //   plugins: [
-    //     lazy(() => import('./pages/app-settings/app-settings.js')),
-    //   ],
-    //   render: () => html`<app-settings></app-settings>`
-    // },
-    // {
-    //   path: resolveRouterPath('help'),
-    //   title: 'Help',
-    //   plugins: [
-    //     lazy(() => import('./pages/app-help/app-help.js')),
-    //   ],
-    //   render: () => html`<app-help></app-help>`
-    // },
-    // {
-    //   path: resolveRouterPath('search'),
-    //   title: 'Search',
-    //   plugins: [
-    //     lazy(() => import('./pages/app-search/app-search.js')),
-    //   ],
-    //   render: () => html`<app-search></app-search>`
-    // },
-    // {
-    //   path: resolveRouterPath('notifications'),
-    //   title: 'Notifications',
-    //   plugins: [
-    //     lazy(() => import('./pages/app-notifications/app-notifications.js')),
-    //   ],
-    //   render: () => html`<app-notifications></app-notifications>`
-    // },
-    // {
-    //   path: resolveRouterPath('activity'),
-    //   title: 'Activity',
-    //   plugins: [
-    //     lazy(() => import('./pages/app-activity/app-activity.js')),
-    //   ],
-    //   render: () => html`<app-activity></app-activity>`
-    // },
   ],
 });
 
