@@ -4,7 +4,7 @@ import { property, customElement } from 'lit/decorators.js';
 import '@shoelace-style/shoelace/dist/components/icon/icon.js';
 import '@shoelace-style/shoelace/dist/components/icon-button/icon-button.js';
 import '@shoelace-style/shoelace/dist/components/button/button.js';
-import { router } from '../router';
+import { resolveRouterPath, router } from '../router';
 
 @customElement('bottom-navigation')
 export class BottomNavigation extends LitElement {
@@ -38,19 +38,25 @@ export class BottomNavigation extends LitElement {
     return html`
       <div class="navbar">
         <div class="nav-item" ?active="${this.activeRoute === 'home'}">
-          <sl-button @click="${() => router.navigate('home')}">
+          <sl-button
+            @click="${() => router.navigate(resolveRouterPath('home'))}"
+          >
             <sl-icon name="house"></sl-icon>
             Home
           </sl-button>
         </div>
         <div class="nav-item" ?active="${this.activeRoute === 'flash'}">
-          <sl-button @click="${() => router.navigate('flash')}">
+          <sl-button
+            @click="${() => router.navigate(resolveRouterPath('flash'))}"
+          >
             <sl-icon name="layers"></sl-icon>
             Flashcards
           </sl-button>
         </div>
         <div class="nav-item" ?active="${this.activeRoute === 'profile'}">
-          <sl-button @click="${() => router.navigate('profile')}">
+          <sl-button
+            @click="${() => router.navigate(resolveRouterPath('profile'))}"
+          >
             <sl-icon name="person"></sl-icon>
             Profile
           </sl-button>

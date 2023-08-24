@@ -7,7 +7,7 @@ import { styles } from './signin-styles';
 
 import { styles as sharedStyles } from '../../../styles/shared-styles';
 import '@shoelace-style/shoelace/dist/components/input/input.js';
-import { router } from '../../../router';
+import { resolveRouterPath, router } from '../../../router';
 import { createClient } from '@supabase/supabase-js';
 
 const supabase = createClient(
@@ -64,7 +64,7 @@ export class SigninPage extends LitElement {
       return;
     }
 
-    router.navigate('/');
+    router.navigate(resolveRouterPath('/'));
   }
 }
 
