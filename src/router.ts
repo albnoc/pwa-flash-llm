@@ -68,6 +68,11 @@ export const router = new Router({
         return html``; // This will not actually render anything because of the redirect above
       },
     },
+    {
+      path: '*',
+      title: 'Home',
+      render: () => html`<app-home></app-home>`,
+    },
   ],
 });
 
