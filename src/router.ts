@@ -12,7 +12,6 @@ import { lazy } from '@thepassle/app-tools/router/plugins/lazy.js';
 // @ts-ignore
 import { title } from '@thepassle/app-tools/router/plugins/title.js';
 
-import './pages/app-home.js';
 import { createAuthPlugin } from './auth-middleware.js';
 
 export const basePath: string = ensureSlashes(
@@ -24,13 +23,13 @@ export const router = new Router({
     {
       path: resolveRouterPath(''), // This should resolve to '/pwa-flash-llm/'
       title: 'Home',
-      plugins: [createAuthPlugin()],
+      plugins: [lazy(() => import('./pages/app-home.js')), createAuthPlugin()],
       render: () => html`<app-home></app-home>`,
     },
     {
       path: resolveRouterPath('home'),
       title: 'Home',
-      plugins: [createAuthPlugin()],
+      plugins: [lazy(() => import('./pages/app-home.js')), createAuthPlugin()],
       render: () => html`<app-home></app-home>`,
     },
     {
@@ -54,7 +53,7 @@ export const router = new Router({
     {
       path: resolveRouterPath('signin'),
       title: 'Sign In',
-      plugins: [lazy(() => import('./pages/auth/signin-page/signin-page.js'))],
+      plugins: [import('./pages/auth/signin-page/signin-page.js')],
       render: () => html`<signin-page></signin-page>`,
     },
     {
