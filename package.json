@@ -17,7 +17,7 @@
   "dependencies": {
     "@shoelace-style/shoelace": "^2.4.0",
     "@supabase/supabase-js": "^2.31.0",
-    "@thepassle/app-tools": "^0.9.0",
+    "@thepassle/app-tools": "^0.9.7",
     "hammerjs": "^2.0.8",
     "lit": "^2.7.2",
     "urlpattern-polyfill": "^7.0.0",
@@ -44,3 +44,4 @@
     "bracketSpacing": true
   }
 }
+

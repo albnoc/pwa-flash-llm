@@ -9,9 +9,6 @@ if (!(globalThis as any).URLPattern) {
 import { Router } from '@thepassle/app-tools/router.js';
 import { lazy } from '@thepassle/app-tools/router/plugins/lazy.js';
 
-// @ts-ignore
-import { title } from '@thepassle/app-tools/router/plugins/title.js';
-
 import { createAuthPlugin } from './auth-middleware.js';
 
 export const basePath: string = ensureSlashes(
@@ -23,8 +20,15 @@ export const router = new Router({
     {
       path: resolveRouterPath(''), // This should resolve to '/pwa-flash-llm/'
       title: 'Home',
-      plugins: [lazy(() => import('./pages/app-home.js')), createAuthPlugin()],
-      render: () => html`<app-home></app-home>`,
+      plugins: [
+        {
+          name: 'redirect',
+          shouldNavigate: () => ({
+            condition: () => false,
+            redirect: resolveRouterPath('home'),
+          }),
+        },
+      ],
     },
     {
       path: resolveRouterPath('home'),
@@ -88,13 +92,8 @@ export const router = new Router({
 
 export function resolveRouterPath(unresolvedPath = ''): string {
   const route = `${basePath}${unresolvedPath}/`.replace(/\/+/g, '/');
-  console.log('ROUTE', route);
   return route;
 }
-
-router.routes.forEach((route: { path: any }) => {
-  console.log(route.path);
-});
 
 export function ensureSlashes(path: string): string {
   if (!path.startsWith('/')) {
