@@ -11,12 +11,12 @@ export class TopicItem extends LitElement {
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 20px;
+      padding: 8px;
       border-radius: 10px;
-      margin: 10px;
+      margin: 4px;
       font-size: 1.2em;
       transition: background-color 0.3s ease;
-      height: 124px;
+      height: 84px;
       text-align: center;
     }
     .topic-container:hover {

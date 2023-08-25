@@ -37,16 +37,10 @@ export class AppHome extends LitElement {
           justify-content: flex-end;
         }
 
-        @media (min-width: 750px) {
-          sl-card {
-            width: 70vw;
-          }
-        }
         #topicsGrid {
           display: grid;
           grid-template-columns: repeat(2, 1fr);
-          gap: 16px;
-          padding: 16px;
+          gap: 4px;
         }
         @media (horizontal-viewport-segments: 2) {
           #welcomeBar {
@@ -56,7 +50,6 @@ export class AppHome extends LitElement {
           }
 
           #welcomeCard {
-            margin-right: 64px;
           }
         }
       `,
