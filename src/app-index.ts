@@ -9,7 +9,9 @@ import { basePath, router } from './router';
 import { setBasePath } from '@shoelace-style/shoelace/dist/utilities/base-path.js';
 
 // Set the base path dynamically based on the basePath
-setBasePath(`${basePath}node_modules/@shoelace-style/shoelace/dist/`);
+
+// setBasePath(`${basePath}node_modules/@shoelace-style/shoelace/dist/`);
+setBasePath(`${basePath}shoelace/`);
 
 @customElement('app-index')
 export class AppIndex extends LitElement {
