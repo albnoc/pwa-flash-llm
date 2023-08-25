@@ -12,7 +12,9 @@ export function createAuthPlugin() {
       },
       redirect: resolveRouterPath('signin'), // If the condition is false, redirect to the signin page
     }),
-    beforeNavigation: (_context: any) => {},
+    beforeNavigation: (_context: any) => {
+      import('./pages/auth/signin-page/signin-page.js');
+    },
     afterNavigation: (_context: any) => {},
   };
 }
