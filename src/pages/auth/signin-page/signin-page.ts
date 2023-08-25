@@ -27,22 +27,24 @@ export class SigninPage extends LitElement {
     return html`
       <app-header ?enableBack="${false}"></app-header>
       <main>
-        <form @submit="${this._onSubmit}">
-          <h2>Sign In</h2>
-          <sl-input
-            type="email"
-            name="email"
-            placeholder="Email"
-            label="Email"
-          ></sl-input>
-          <sl-input
-            type="password"
-            name="password"
-            placeholder="Password"
-            label="Password"
-          ></sl-input>
-          <sl-button type="submit" submit>Sign In</sl-button>
-        </form>
+        <sl-card>
+          <form @submit="${this._onSubmit}">
+            <h2>Sign In</h2>
+            <sl-input
+              type="email"
+              name="email"
+              placeholder="Email"
+              label="Email"
+            ></sl-input>
+            <sl-input
+              type="password"
+              name="password"
+              placeholder="Password"
+              label="Password"
+            ></sl-input>
+            <sl-button type="submit" submit>Sign In</sl-button>
+          </form>
+        </sl-card>
       </main>
     `;
   }
