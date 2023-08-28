@@ -62,7 +62,7 @@ export class TopicPage extends LitElement {
         <div id="subtopicsGrid">
           ${this.subtopics.length
             ? this.subtopics.map(
-                (subtopic, index) => html`
+                (subtopic, _index) => html`
                   <topic-item .label=${subtopic}></topic-item>
                 `
               )
