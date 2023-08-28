@@ -4,18 +4,44 @@
 
 //@ts-ignore
 import { serve } from 'https://deno.land/std@0.168.0/http/server.ts';
-
-console.log('Hello from Functions!');
+//@ts-ignore
+import { OpenAI } from 'https://deno.land/x/openai/mod.ts';
 
 serve(async (req) => {
-  const { name } = await req.json();
-  const data = {
-    message: `Hello ${name}!`,
+  // Parse the incoming request data.
+  const { topicName } = await req.json();
+
+  const openai = new OpenAI(Deno.env.get('OPENAI_API_KEY'));
+  // Create a configuration for the OpenAI completion request.
+  const completionConfig = {
+    model: 'gpt-3.5-turbo',
+    messages: [
+      {
+        role: 'system',
+        content:
+          'You are an expert in startups knowledge and create the best learning flashcards. Further more you break down particular topics in a structured way so that the student can learn the material in chunks. Right now the structure should allow up to three levels and create training cards for the particular subject. You should always return the result as json so that its consumable by an backend service.',
+      },
+      {
+        role: 'user',
+        content: `Breakdown the topic "${topicName}" into all relevant subtopics. Return the Topics in following examplary format: { "topic": "topicName", "subtopics": ["subtopic1", "subtopic2", "subtopic3"] }`,
+      },
+    ],
+    temperature: 1,
+    max_tokens: 256,
+    top_p: 1,
+    frequency_penalty: 0,
+    presence_penalty: 0,
   };
 
-  return new Response(JSON.stringify(data), {
-    headers: { 'Content-Type': 'application/json' },
-  });
+  // Fetch results from OpenAI.
+  const completion = await openai.createChatCompletion(completionConfig);
+  console.log(completion);
+
+  return completion;
+
+  // const data = await response.json();
+  // console.log(data);
+  // return data;
 });
 
 // To invoke:
