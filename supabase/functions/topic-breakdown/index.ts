@@ -1,38 +1,17 @@
 import 'https://deno.land/x/xhr@0.3.0/mod.ts';
 import { serve } from 'https://deno.land/std@0.177.0/http/server.ts';
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
-const completion_example = {
-  id: 'chatcmpl-7sYKj40M2g4dObLWzfH48OxJuAVPA',
-  object: 'chat.completion',
-  created: 1693236045,
-  model: 'gpt-3.5-turbo-0613',
-  choices: [
-    {
-      index: 0,
-      message: {
-        role: 'assistant',
-        content:
-          '{ "topic": "Startup Basics", "subtopics": ["Idea Generation", "Market Research", "Business Plan", "Funding", "Legal Considerations", "Team Building", "Product Development", "Marketing and Sales", "Operations and Logistics", "Financial Management", "Scaling and Growth"] }',
-      },
-      finish_reason: 'stop',
-    },
-  ],
-  usage: {
-    prompt_tokens: 137,
-    completion_tokens: 62,
-    total_tokens: 199,
-  },
-};
+
 serve(async (req, res) => {
   try {
     const { topicName } = await req.json();
 
     const supabaseClient = await getSupabaseClient(req);
-    // const user = await getAuthenticatedUser(supabaseClient);
+    const user = await getAuthenticatedUser(supabaseClient);
 
     const topic = await findOrInsertTopic(supabaseClient, topicName);
 
-    const subtopics = await getSubtopicsFromCompletion();
+    const subtopics = await getSubtopicsFromCompletion(topic.name);
     await insertSubtopics(supabaseClient, topic, subtopics);
 
     const body = JSON.stringify(topic);
@@ -76,12 +55,11 @@ async function findOrInsertTopic(supabaseClient: any, topicName: string) {
   return topic[0];
 }
 
-async function getSubtopicsFromCompletion() {
-  // For now, I'm pulling directly from the static example.
-  // Replace with call to `breakdownTopic()` when you want to fetch live data.
-  const completion = JSON.parse(completion_example.choices[0].message.content);
-  console.log(completion);
-  return completion.subtopics;
+async function getSubtopicsFromCompletion(topicName: string) {
+  const response = await breakdownTopic(topicName);
+  const completion = await response.json(); // Convert the raw response to JSON
+  const content = JSON.parse(completion.choices[0].message.content);
+  return content.subtopics;
 }
 
 async function insertSubtopics(
@@ -141,7 +119,7 @@ async function breakdownTopic(topicName: string) {
     stream: false,
   };
 
-  const completion = await fetch('https://api.openai.com/v1/chat/completions', {
+  const response = await fetch('https://api.openai.com/v1/chat/completions', {
     method: 'POST',
     headers: {
       'Authorization': `Bearer ${Deno.env.get('OPENAI_API_KEY')}`,
@@ -150,6 +128,6 @@ async function breakdownTopic(topicName: string) {
     body: JSON.stringify(completionConfig),
   });
 
-  return completion;
+  return response; // Return the raw response
 }
 
