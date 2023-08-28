@@ -12,15 +12,26 @@ export class BottomNavigation extends LitElement {
 
   static get styles() {
     return css`
+      @media (prefers-color-scheme: light) {
+        .navbar {
+          background-color: #f5f5f5;
+          border-top: 1px solid #d9d9d9;
+        }
+      }
+      @media (prefers-color-scheme: dark) {
+        .navbar {
+          background-color: #181818;
+          border-top: 1px solid var(--sl-color-neutral-200);
+        }
+      }
+
       .navbar {
         display: flex;
         justify-content: space-around;
         padding: 10px 0;
-        background-color: #f9f9f9;
         position: fixed;
         bottom: 0;
         width: 100%;
-        border-top: 1px solid #d9d9d9;
       }
 
       .nav-item {

@@ -10,3 +10,6 @@ VALUES
 ('Legal & Regulatory'),
 ('Personal Skills & Mindset'),
 ('Networking & Ecosystem');
+('Financial Management');
+('Scaling and Expansion');
+('Exit Strategies');
