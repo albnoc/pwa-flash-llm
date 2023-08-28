@@ -37,7 +37,7 @@ async function getAuthenticatedUser(supabaseClient: any) {
   const {
     data: { user },
   } = await supabaseClient.auth.getUser();
-  if (!user) throw new Error('User not authenticated');
+  // if (!user) throw new Error('User not authenticated');
   return user;
 }
 
