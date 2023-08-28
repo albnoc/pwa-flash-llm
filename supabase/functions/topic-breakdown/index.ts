@@ -7,7 +7,6 @@ serve(async (req, res) => {
     const { topicName } = await req.json();
 
     const supabaseClient = await getSupabaseClient(req);
-    const user = await getAuthenticatedUser(supabaseClient);
 
     const topic = await findOrInsertTopic(supabaseClient, topicName);
 
@@ -35,10 +34,17 @@ serve(async (req, res) => {
 
 async function getAuthenticatedUser(supabaseClient: any) {
   const {
-    data: { user },
-  } = await supabaseClient.auth.getUser();
-  // if (!user) throw new Error('User not authenticated');
-  return user;
+    data: { user, session },
+    error,
+  } = await supabaseClient.auth.signInWithPassword({
+    email: Deno.env.get('TECH_SUPABASE_USER'),
+    password: Deno.env.get('TECH_SUPABASE_PASSWORD'),
+  });
+  if (error) {
+    console.error('Supabase Auth Error:', error.message);
+  }
+  if (!user || !session) throw new Error('User not authenticated');
+  return session.access_token; // Return the session token
 }
 
 async function findOrInsertTopic(supabaseClient: any, topicName: string) {
@@ -76,23 +82,18 @@ async function insertSubtopics(
     .from('topic')
     .insert(newSubtopics);
   if (error) throw error;
-  console.log(data);
   return data;
 }
 
-async function getSupabaseClient(req) {
+async function getSupabaseClient() {
   const supabaseClient = createClient(
-    // Supabase API URL - env var exported by default.
     Deno.env.get('SUPABASE_URL') ?? '',
-    // Supabase API ANON KEY - env var exported by default.
-    Deno.env.get('SUPABASE_ANON_KEY') ?? '',
-    // Create client with Auth context of the user that called the function.
-    // This way your row-level-security (RLS) policies are applied.
-    {
-      global: { headers: { Authorization: req.headers.get('Authorization')! } },
-      persistSession: false,
-    }
+    Deno.env.get('SUPABASE_ANON_KEY') ?? ''
   );
+
+  const sessionToken = await getAuthenticatedUser(supabaseClient);
+  supabaseClient.auth.session = () => ({ access_token: sessionToken }); // Set the session token
+  supabaseClient.auth.currentSession = () => ({ access_token: sessionToken }); // Also set current session
 
   return supabaseClient;
 }
