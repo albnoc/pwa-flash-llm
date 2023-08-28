@@ -1,7 +1,7 @@
 import { LitElement, css } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import './pages/app-home';
+import './pages/home/app-home';
 import './components/header';
 import './components/bottom-navigation';
 import './styles/global.css';

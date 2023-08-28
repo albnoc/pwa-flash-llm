@@ -30,10 +30,11 @@ export class AppHeader extends LitElement {
       }
 
       header h1 {
-        margin-top: 0;
-        margin-bottom: 0;
+        margin: 0;
         font-size: 20px;
         font-weight: bold;
+        flex-grow: 1; /* Allow h1 to grow and take available space */
+        text-align: left; /* Align text to left */
       }
 
       nav a {
@@ -42,9 +43,9 @@ export class AppHeader extends LitElement {
 
       #back-button-block {
         display: flex;
-        justify-content: space-between;
         align-items: center;
-        width: 12em;
+        flex-grow: 1; /* Allow this div to grow and take available space */
+        padding-right: 16px; /* Add padding to the right side, if necessary */
       }
 
       @media (prefers-color-scheme: light) {
@@ -71,7 +72,9 @@ export class AppHeader extends LitElement {
             ? html`<sl-button href="${resolveRouterPath()}"> Back </sl-button>`
             : null}
 
-          <h1>${this.title}</h1>
+          <h1 style=${this.enableBack ? 'margin-left: 16px;' : ''}>
+            ${this.title}
+          </h1>
         </div>
       </header>
     `;

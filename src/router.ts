@@ -33,8 +33,22 @@ export const router = new Router({
     {
       path: resolveRouterPath('home'),
       title: 'Home',
-      plugins: [lazy(() => import('./pages/app-home.js')), createAuthPlugin()],
+      plugins: [
+        lazy(() => import('./pages/home/app-home.js')),
+        createAuthPlugin(),
+      ],
       render: () => html`<app-home></app-home>`,
+    },
+    {
+      path: resolveRouterPath('topic/:topicId'),
+      title: (ctx: { params: { topicId: string } }) =>
+        `Topic ${ctx.params.topicId}`,
+      plugins: [
+        lazy(() => import('./pages/home/topic/topic-page.js')),
+        createAuthPlugin(),
+      ],
+      render: (ctx: { params: { topicId: string } }) =>
+        html`<topic-page .topicId=${ctx.params.topicId}></topic-page>`,
     },
     {
       path: resolveRouterPath('profile'),

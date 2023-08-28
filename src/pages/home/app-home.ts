@@ -3,17 +3,18 @@ import { property, customElement } from 'lit/decorators.js';
 
 import '@shoelace-style/shoelace/dist/components/card/card.js';
 import '@shoelace-style/shoelace/dist/components/button/button.js';
-import '../components/topic-item';
+import '../../components/topic-item';
 
-import { styles } from '../styles/shared-styles';
-import { supabase } from '../supabase-client';
+import { styles } from '../../styles/shared-styles';
+import { supabase } from '../../supabase-client';
+import { resolveRouterPath, router } from '../../router';
 
 @customElement('app-home')
 export class AppHome extends LitElement {
   // For more information on using properties and state in lit
   // check out this link https://lit.dev/docs/components/properties/
   @property() message = 'Welcome!';
-  @property() topics: string[] = [];
+  @property() topics: { id: number; topicName: string }[] = [];
 
   static get styles() {
     return [
@@ -62,12 +63,16 @@ export class AppHome extends LitElement {
 
   async firstUpdated() {
     try {
-      let { data: topic, error } = await supabase.from('topic').select('name');
+      let { data: topic, error } = await supabase
+        .from('topic')
+        .select('id,name')
+        .eq('depth', 0);
 
       if (error) {
         console.error('Error fetching topic:', error);
       } else {
-        this.topics = topic?.map((t) => t.name) ?? [];
+        this.topics =
+          topic?.map((t) => ({ id: t.id, topicName: t.name })) ?? [];
       }
     } catch (err) {
       console.error('Unexpected error fetching topic:', err);
@@ -100,7 +105,9 @@ export class AppHome extends LitElement {
     ];
     return colors[index % colors.length];
   }
-
+  navigateToTopicPage(topic: string) {
+    router.navigate(resolveRouterPath(`/topic/${topic}`));
+  }
   render() {
     return html`
       <app-header></app-header>
@@ -116,8 +123,9 @@ export class AppHome extends LitElement {
               ${this.topics.map(
                 (topic, index) => html`
                   <topic-item
-                    .label=${topic}
+                    .label=${topic.topicName}
                     .color=${this.getColor(index)}
+                    @click=${() => this.navigateToTopicPage(`${topic.id}`)}
                   ></topic-item>
                 `
               )}
