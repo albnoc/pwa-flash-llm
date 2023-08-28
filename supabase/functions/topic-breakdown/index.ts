@@ -1,19 +1,11 @@
-// Follow this setup guide to integrate the Deno language server with your editor:
-// https://deno.land/manual/getting_started/setup_your_environment
-// This enables autocomplete, go to definition, etc.
-
-//@ts-ignore
-import { serve } from 'https://deno.land/std@0.168.0/http/server.ts';
-//@ts-ignore
-import { OpenAI } from 'https://deno.land/x/openai/mod.ts';
+import 'https://deno.land/x/xhr@0.3.0/mod.ts';
+import { serve } from 'https://deno.land/std@0.177.0/http/server.ts';
+// import { CreateCompletionRequest } from 'https://esm.sh/openai@3.1.0';
 
 serve(async (req) => {
-  // Parse the incoming request data.
   const { topicName } = await req.json();
 
-  const openai = new OpenAI(Deno.env.get('OPENAI_API_KEY'));
-  // Create a configuration for the OpenAI completion request.
-  const completionConfig = {
+  const completionConfig: CreateCompletionRequest = {
     model: 'gpt-3.5-turbo',
     messages: [
       {
@@ -31,22 +23,16 @@ serve(async (req) => {
     top_p: 1,
     frequency_penalty: 0,
     presence_penalty: 0,
+    stream: false,
   };
 
-  // Fetch results from OpenAI.
-  const completion = await openai.createChatCompletion(completionConfig);
-  console.log(completion);
-
-  return completion;
-
-  // const data = await response.json();
-  // console.log(data);
-  // return data;
+  return fetch('https://api.openai.com/v1/chat/completions', {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${Deno.env.get('OPENAI_API_KEY')}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(completionConfig),
+  });
 });
-
-// To invoke:
-// curl -i --location --request POST 'http://localhost:54321/functions/v1/' \
-//   --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6ImFub24iLCJleHAiOjE5ODM4MTI5OTZ9.CRXP1A7WOeoJeXxjNni43kdQwgnWNReilDMblYTn_I0' \
-//   --header 'Content-Type: application/json' \
-//   --data '{"name":"Functions"}'
 
