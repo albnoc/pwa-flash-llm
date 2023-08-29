@@ -12,7 +12,6 @@ export const styles = css`
   main {
     margin-top: 80px;
     margin-bottom: 80px;
-    margin-left: 24px;
   }
 `;
 
