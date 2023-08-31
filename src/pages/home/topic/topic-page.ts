@@ -16,6 +16,12 @@ export class TopicPage extends LitElement {
     return [
       styles,
       css`
+        #container {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          flex-direction: column;
+        }
         .empty-state {
           display: flex;
           justify-content: center;
@@ -59,15 +65,21 @@ export class TopicPage extends LitElement {
       <app-header ?enableBack="${true}" title="${this.topicName}"></app-header>
 
       <main>
-        <div id="subtopicsGrid">
-          ${this.subtopics.length
-            ? this.subtopics.map(
-                (subtopic, _index) => html`
-                  <topic-item .label=${subtopic}></topic-item>
-                `
-              )
-            : html` <div class="empty-state">No subtopics available.</div> `}
-        </div>
+        <sl-card id="container">
+          <div slot="header">
+            <h2>Subtopics</h2>
+          </div>
+
+          <div id="subtopicsGrid">
+            ${this.subtopics.length
+              ? this.subtopics.map(
+                  (subtopic, index) => html`
+                    <topic-item .label=${subtopic}></topic-item>
+                  `
+                )
+              : html` <div class="empty-state">No subtopics available.</div> `}
+          </div>
+        </sl-card>
       </main>
       <bottom-navigation active-route="home"></bottom-navigation>
     `;

@@ -4,7 +4,7 @@ import { property, customElement } from 'lit/decorators.js';
 @customElement('topic-item')
 export class TopicItem extends LitElement {
   @property() label: string = '';
-  @property() color: string = '#ffffff';
+  @property() color: string | undefined = undefined;
 
   static styles = css`
     .topic-container {
@@ -18,6 +18,7 @@ export class TopicItem extends LitElement {
       transition: background-color 0.3s ease;
       height: 84px;
       text-align: center;
+      background-color: var(--sl-color-neutral-200);
     }
     .topic-container:hover {
       transform: scale(1.05);
@@ -26,7 +27,7 @@ export class TopicItem extends LitElement {
 
   render() {
     return html`
-      <div class="topic-container" style="background-color: ${this.color}">
+      <div class="topic-container" style="background-color:${this.color}">
         ${this.label}
       </div>
     `;

@@ -13,14 +13,14 @@ import { resolveRouterPath, router } from '../../router';
 export class AppHome extends LitElement {
   // For more information on using properties and state in lit
   // check out this link https://lit.dev/docs/components/properties/
-  @property() message = 'Welcome!';
+  @property() message = 'Startup Topics';
   @property() topics: { id: number; topicName: string }[] = [];
 
   static get styles() {
     return [
       styles,
       css`
-        #welcomeBar {
+        #container {
           display: flex;
           justify-content: center;
           align-items: center;
@@ -79,17 +79,6 @@ export class AppHome extends LitElement {
     }
   }
 
-  share() {
-    if ((navigator as any).share) {
-      (navigator as any).share({
-        title: 'PWABuilder pwa-starter',
-        text: 'Check out the PWABuilder pwa-starter!',
-        url: 'https://github.com/pwa-builder/pwa-starter',
-      });
-    }
-  }
-  // ... other properties ...
-
   getColor(index: number): string {
     const colors = [
       '#FAD02E',
@@ -113,7 +102,7 @@ export class AppHome extends LitElement {
       <app-header></app-header>
 
       <main>
-        <div id="welcomeBar">
+        <div id="container">
           <sl-card id="welcomeCard">
             <div slot="header">
               <h2>${this.message}</h2>
@@ -130,15 +119,6 @@ export class AppHome extends LitElement {
                 `
               )}
             </div>
-
-            ${'share' in navigator
-              ? html`<sl-button
-                  slot="footer"
-                  variant="primary"
-                  @click="${this.share}"
-                  >Share this Starter!</sl-button
-                >`
-              : null}
           </sl-card>
         </div>
       </main>
