@@ -13,7 +13,7 @@ import { resolveRouterPath, router } from '../../router';
 export class AppHome extends LitElement {
   // For more information on using properties and state in lit
   // check out this link https://lit.dev/docs/components/properties/
-  @property() message = 'Startup Topics';
+  @property() message = '';
   @property() topics: { id: number; topicName: string }[] = [];
 
   static get styles() {
@@ -99,15 +99,11 @@ export class AppHome extends LitElement {
   }
   render() {
     return html`
-      <app-header></app-header>
+      <app-header title="Startup Topics"></app-header>
 
       <main>
         <div id="container">
           <sl-card id="welcomeCard">
-            <div slot="header">
-              <h2>${this.message}</h2>
-            </div>
-
             <div id="topicsGrid">
               ${this.topics.map(
                 (topic, index) => html`

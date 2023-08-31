@@ -21,6 +21,7 @@ export class TopicPage extends LitElement {
           justify-content: center;
           align-items: center;
           flex-direction: column;
+          padding: 0px 18px;
         }
         .empty-state {
           display: flex;
@@ -66,10 +67,6 @@ export class TopicPage extends LitElement {
 
       <main>
         <sl-card id="container">
-          <div slot="header">
-            <h2>Subtopics</h2>
-          </div>
-
           <div id="subtopicsGrid">
             ${this.subtopics.length
               ? this.subtopics.map(
